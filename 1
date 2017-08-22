@@ -1,0 +1,48 @@
+#include <iostream>
+#include <list>
+using namespace std;
+struct point{
+	long long x,y;
+};
+
+int main(){
+	int N;
+	cin >>N;
+	list<point*> maxPoint;
+	point *p,*pt;
+	bool is;
+	for(int i=0;i<N;i++){
+		p=new point;
+		cin >>p->x>>p->y;
+		is=true;
+		for (list<point*>::iterator i = maxPoint.begin(); i != maxPoint.end(); i++)
+		{
+			pt=*i;
+			if(pt->x<p->x&&pt->y<p->y){
+				delete pt;
+				maxPoint.erase(i);
+			}
+			if(pt->x>p->x&&pt->y>p->y){
+				is=false;
+			}
+						
+		}
+		if(is){
+			maxPoint.push_back(p);
+		} 
+		else{
+			delete p;
+			p=NULL;
+		}
+	}
+	
+	
+	
+	for (list<point*>::iterator i = maxPoint.begin(); i != maxPoint.end(); i++)
+	{
+		p=*i;
+		cout <<p->x<<" "<<p->y<<endl;
+		delete p;
+	}
+	maxPoint.clear();
+}
